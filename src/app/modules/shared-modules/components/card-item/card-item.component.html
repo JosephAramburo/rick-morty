@@ -9,7 +9,9 @@
                 <ng-template #elseName>
                     <h4 class="text-white">{{character.name}}</h4>
                 </ng-template>
-                <h6 class="text-white"><span class="badge" style="border-radius: 8px;" [ngClass]="setColorStatus(character.status)">a</span> {{character.status}} - {{character.species}}</h6>
+                <h6 class="text-white">
+                    <span class="badge" style="border-radius: 8px;" [ngClass]="setColorStatus(character.status)">a</span> {{character.status}} - {{character.species}} - {{character?.gender}}
+                </h6>
                 <h6 class="pt-2 mb-0 color-subtitle">Last known location:</h6>
                 <h5 class="text-white">{{character?.location?.name}}</h5>
                 <h6 class="pt-2 mb-0 color-subtitle">First seen in:</h6>
