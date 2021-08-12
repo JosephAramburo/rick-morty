@@ -29,10 +29,12 @@ export class ListCardsComponent implements OnInit {
   filterAutocomplete    : CardItemInterface         = {} as CardItemInterface;
   info                  : InfoInterface             = {} as InfoInterface;
   listAllCharacters     : CardItemInterface[]       = [];
-  listCharactersCompare : CardItemInterface[]       = [];
+  listAllLocations      : LocationItemInterface[]   = [];
+  listAllEpisodes       : EpisodeInterface[]        = [];
   listCharacters        : CardItemInterface[]       = [];
   listLocations         : LocationItemInterface[]   = [];
   listEpisodes          : EpisodeInterface[]        = [];
+  listCharactersCompare : CardItemInterface[]       = [];
   typeFilters           : TypeFilterInterface[]     = [];
 
   constructor(
@@ -58,6 +60,21 @@ export class ListCardsComponent implements OnInit {
     this.filterSelected = this.typeFilters[0].name;
   }
 
+  searchList(event:any):void{
+    let filterLower : string = this.filter.toLowerCase().trim();
+    switch(this.filterSelected){
+      case this.typeFilters[0].name:
+          this.listCharacters = this.listAllCharacters.filter(x => x.name.toLowerCase().trim().includes(filterLower));
+        break;
+      case this.typeFilters[1].name:
+        this.listLocations = this.listAllLocations.filter(x => x.name.toLowerCase().trim().includes(filterLower));
+        break;
+      case this.typeFilters[2].name:
+        this.listEpisodes = this.listAllEpisodes.filter(x => x.name.toLowerCase().trim().includes(filterLower));
+        break;
+    }
+  }
+
   changeFilter(item : TypeFilterInterface):void{
     switch(item.name){
       case this.typeFilters[0].name:
@@ -78,7 +95,8 @@ export class ListCardsComponent implements OnInit {
   getLocations():Promise<LocationInterface>{
     return new Promise((resolve, reject) => {
       this.locationsServices.get().subscribe(response => {
-        this.listLocations = response.results;
+        this.listLocations    = response.results;
+        this.listAllLocations = response.results;
         resolve(response);
       },(error : HttpErrorResponse) => {
         reject(error);
@@ -99,7 +117,8 @@ export class ListCardsComponent implements OnInit {
   getEpisodes():Promise<EpisodeResponseInterface>{
     return new Promise((resolve, reject) => {
       this.episodesServices.get().subscribe(response => {
-        this.listEpisodes = response.results;
+        this.listEpisodes     = response.results;
+        this.listAllEpisodes  = response.results;
         resolve(response);
       },(error : HttpErrorResponse) => {
         reject(error);
@@ -141,6 +160,8 @@ export class ListCardsComponent implements OnInit {
         }).catch(() => {
 
         });
+      }else{
+        this.listAllCharacters = listCha;
       }
     }).catch((error : HttpErrorResponse) => {
 
@@ -187,7 +208,7 @@ export class ListCardsComponent implements OnInit {
     debounceTime(200),
     distinctUntilChanged(),
     filter(term => term.length >= 2),
-    map(term => this.listCharacters.filter(state => new RegExp(term, 'mi').test(state.name)).slice(0, 10))
+    map(term => this.listAllCharacters.filter(state => new RegExp(term, 'mi').test(state.name)).slice(0, 10))
   )
 
   formatter = (item: CardItemInterface) => item.name;

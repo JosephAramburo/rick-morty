@@ -4,7 +4,7 @@
 <div class="row mt-0 pt-0 mr-1 bg-body">
     <div class="col-12 mt-2 pt-2">
         <div class="container">
-            <input class="form-control form-control-lg mb-2" placeholder="Search..." autofocus [(ngModel)]="filter" *ngIf="filterSelected != typeFilters[3].name; else tempAutocomplete">
+            <input class="form-control form-control-lg mb-2" placeholder="Search..." autofocus [(ngModel)]="filter" (keyup)="searchList($event)" *ngIf="filterSelected != typeFilters[3].name; else tempAutocomplete">
             <ng-template #tempAutocomplete>
                 <input id="typeahead-basic" #inputAutocomplete type="text" class="form-control form-control-lg mb-2" placeholder="Search..." [(ngModel)]="filterAutocomplete" (selectItem)="selectedCharacter($event, inputAutocomplete)" [ngbTypeahead]="search" [focusFirst]="true" [resultTemplate]="rt" [inputFormatter]="formatter" [resultFormatter]="formatter"/>
 
