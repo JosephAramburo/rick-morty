@@ -7,7 +7,8 @@ import { CardItemInterface } from '@interfaces/card-item-interface';
   styleUrls: ['./card-item.component.css']
 })
 export class CardItemComponent implements OnInit {
-  @Input() character : CardItemInterface = {} as CardItemInterface;
+  @Input() character      : CardItemInterface = {} as CardItemInterface;
+  @Input() isComparasion  : boolean           = false;
 
   constructor() { }
 

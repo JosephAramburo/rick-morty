@@ -4,7 +4,15 @@
 <div class="row mt-0 pt-0 mr-1 bg-body">
     <div class="col-12 mt-2 pt-2">
         <div class="container">
-            <input class="form-control form-control-lg mb-2" placeholder="Search..." autofocus [(ngModel)]="filter">
+            <input class="form-control form-control-lg mb-2" placeholder="Search..." autofocus [(ngModel)]="filter" *ngIf="filterSelected != typeFilters[3].name; else tempAutocomplete">
+            <ng-template #tempAutocomplete>
+                <input id="typeahead-basic" #inputAutocomplete type="text" class="form-control form-control-lg mb-2" placeholder="Search..." [(ngModel)]="filterAutocomplete" (selectItem)="selectedCharacter($event, inputAutocomplete)" [ngbTypeahead]="search" [focusFirst]="true" [resultTemplate]="rt" [inputFormatter]="formatter" [resultFormatter]="formatter"/>
+
+                <ng-template #rt let-r="result" let-t="term">
+                    <img [src]="r.image" class="mr-1" style="width: 46px; border-radius: 30px;">
+                    <ngb-highlight [result]="r.name" [term]="t"></ngb-highlight>
+                </ng-template>
+            </ng-template>
             <div class="row text-center">
                 <div class="col-12">
                     <h5 class="text-white">Search for:</h5>
@@ -12,6 +20,9 @@
                         <input class="form-check-input" type="radio" name="inlineRadioOptions" [attr.id]="item.id" [value]="item.name" [(ngModel)]="filterSelected" (change)="changeFilter(item)">
                         <label class="form-check-label text-white label-size-check-box" [for]="item.id">{{item.text}}</label>
                     </div>
+                </div>
+                <div class="col-12 mt-1" *ngIf="filterSelected == typeFilters[3].name && listCharactersCompare.length > 1">
+                    <button class="btn btn-success btn-lg col-5"><i class="fas fa-check-circle"></i> Comparasion</button>
                 </div>
             </div>
             <div class="row">
@@ -28,6 +39,11 @@
                 <ng-container *ngIf="filterSelected == typeFilters[2].name">
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 p-3" *ngFor="let item of listEpisodes">
                         <app-card-episode [episode]="item"></app-card-episode>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="filterSelected == typeFilters[3].name">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 p-3" *ngFor="let item of listCharactersCompare">
+                        <app-card-item [character]="item" [isComparasion]="true"></app-card-item>
                     </div>
                 </ng-container>
             </div>

@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
+
+
 import { RickMortyRoutingModule } from './rick-morty-routing.module';
 import { ListCardsComponent } from './components/list-cards/list-cards.component';
 import { SharedModulesModule } from '@modules/shared-modules/shared-modules.module';
-
-
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { SharedModulesModule } from '@modules/shared-modules/shared-modules.modu
     RickMortyRoutingModule,
     SharedModulesModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbTypeaheadModule,
   ]
 })
 export class RickMortyModule { }
