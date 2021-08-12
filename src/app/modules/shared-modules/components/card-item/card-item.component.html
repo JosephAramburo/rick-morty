@@ -1,0 +1,20 @@
+<div class="card bg-card" >
+    <div class="card-body pt-0 pb-0 bg-card">
+        <div class="row">
+            <div class="col-4 m-0 p-0">
+                <img [src]="character?.image" class="img-fluid" style="height: 195px;">
+            </div>
+            <div class="col-8 pr-0 bg-card">
+                <h2 class="text-white" *ngIf="character.name.length < 17; else elseName">{{character.name}}</h2>
+                <ng-template #elseName>
+                    <h4 class="text-white">{{character.name}}</h4>
+                </ng-template>
+                <h6 class="text-white"><span class="badge" style="border-radius: 8px;" [ngClass]="setColorStatus(character.status)">a</span> {{character.status}} - {{character.species}}</h6>
+                <h6 class="pt-2 mb-0 color-subtitle">Last known location:</h6>
+                <h5 class="text-white">{{character?.location?.name}}</h5>
+                <h6 class="pt-2 mb-0 color-subtitle">First seen in:</h6>
+                <h5 class="text-white">{{character?.seen}}</h5>
+            </div>
+        </div>
+    </div>
+  </div>
