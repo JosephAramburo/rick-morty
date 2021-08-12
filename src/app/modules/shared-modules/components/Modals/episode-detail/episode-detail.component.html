@@ -1,0 +1,37 @@
+<div class="card bg-card">
+    <div class="modal-header">
+        <h3 class="modal-title text-white">{{episode.name}}</h3>
+        <button type="button" class="close text-white" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                <h6 class="pt-2 mb-0 color-subtitle">Episode code:</h6>
+                <h5 class="text-white">{{episode.episode}}</h5>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                <h6 class="pt-2 mb-0 color-subtitle">Air date:</h6>
+                <h5 class="text-white">{{episode.air_date}}</h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <h6 class="pt-2 mb-0 color-subtitle">Characters:</h6>
+                <div class="col-12 form-inline">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 m-0 p-0 mb-2" *ngFor="let item of episode.charactersInfo">
+                        <div class="row m-0 p-0 mt-1">
+                            <div class="col-3">
+                                <img [src]="item.image" class="mr-1" style="width: 46px; border-radius: 30px;">
+                            </div>
+                            <div class="col-9">
+                                <h5 class="text-white">{{item.name}}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

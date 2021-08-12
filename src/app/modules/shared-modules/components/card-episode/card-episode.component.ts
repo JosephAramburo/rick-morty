@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { EpisodeInterface } from '@interfaces/episode-interface';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { EpisodeDetailComponent } from '../Modals/episode-detail/episode-detail.component';
 
 @Component({
   selector: 'app-card-episode',
@@ -8,9 +10,22 @@ import { EpisodeInterface } from '@interfaces/episode-interface';
 })
 export class CardEpisodeComponent implements OnInit {
   @Input() episode : EpisodeInterface = {} as EpisodeInterface;
-  constructor() { }
+
+  constructor(
+    private modalService: NgbModal
+  ) { }
 
   ngOnInit(): void {
   }
 
+  showDetail(){
+    let modal : NgbModalRef         = this.modalService.open(EpisodeDetailComponent);
+    modal.componentInstance.episode = this.episode;
+
+    modal.result.then(() => {
+
+    }).catch(() => {
+
+    });
+  }
 }

@@ -11,3 +11,8 @@ export interface CharacterInterface {
     info    : InfoInterface;
     results : CardItemInterface[];
 }
+
+export interface CharacterInfo{
+    name     : string;
+    image    : string;
+}
