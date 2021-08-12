@@ -149,6 +149,12 @@ export class ListCardsComponent implements OnInit {
     });
   }
 
+  removeItem(item : CardItemInterface):void{
+    let indexO  : number        = this.listCharactersCompare.indexOf(item);
+    this.listCharactersCompare.splice(indexO, 1);
+    this.comparasion();
+  }
+
   search = (text$: Observable<string>) => text$.pipe(
     debounceTime(200),
     distinctUntilChanged(),

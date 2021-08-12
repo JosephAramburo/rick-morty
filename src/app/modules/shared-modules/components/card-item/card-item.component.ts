@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CardItemInterface } from '@interfaces/card-item-interface';
 
 @Component({
@@ -9,6 +9,7 @@ import { CardItemInterface } from '@interfaces/card-item-interface';
 export class CardItemComponent implements OnInit {
   @Input() character      : CardItemInterface = {} as CardItemInterface;
   @Input() isComparasion  : boolean           = false;
+  @Output() removeItem    : EventEmitter<any> = new EventEmitter();
 
   constructor() { }
 
@@ -28,6 +29,10 @@ export class CardItemComponent implements OnInit {
     }
 
     return statusArray;
+  }
+
+  fnRemoveItem(item : CardItemInterface):void{
+    this.removeItem.emit(item);
   }
 
 }

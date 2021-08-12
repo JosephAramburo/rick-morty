@@ -43,7 +43,7 @@
                 </ng-container>
                 <ng-container *ngIf="filterSelected == typeFilters[3].name">
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 p-3" *ngFor="let item of listCharactersCompare">
-                        <app-card-item [character]="item" [isComparasion]="true"></app-card-item>
+                        <app-card-item [character]="item" [isComparasion]="true" (removeItem)="removeItem($event)"></app-card-item>
                     </div>
                 </ng-container>
             </div>
