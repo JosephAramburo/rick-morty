@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { EpisodeInterface } from '@interfaces/episode-interface';
 
 @Component({
   selector: 'app-card-episode',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./card-episode.component.css']
 })
 export class CardEpisodeComponent implements OnInit {
-
+  @Input() episode : EpisodeInterface = {} as EpisodeInterface;
   constructor() { }
 
   ngOnInit(): void {

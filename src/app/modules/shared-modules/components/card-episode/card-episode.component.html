@@ -1,1 +1,29 @@
-<p>card-episode works!</p>
+<div class="card bg-card">
+    <div class="card-body pt-0 pb-0 bg-card">
+        <div class="row">
+            <div class="col-12 pr-0 bg-card" style="min-height: 160px;">
+                <h2 class="text-white text-center">{{episode.name}}</h2>
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                        <h6 class="pt-2 mb-0 color-subtitle">Episode code:</h6>
+                        <h5 class="text-white">{{episode.episode}}</h5>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                        <h6 class="pt-2 mb-0 color-subtitle">Air date:</h6>
+                        <h5 class="text-white">{{episode.air_date}}</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <div class="row pb-2">
+            <div class="col-12">
+                <button class="btn btn-info bg-lg col-12"><i class="fas fa-plus"></i> Info</button>
+            </div>
+            <!-- <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                <button class="btn btn-success bg-lg col-12 "><i class="fas fa-exchange-alt"></i> Comparer</button>
+            </div> -->
+        </div>
+    </div>
+  </div>

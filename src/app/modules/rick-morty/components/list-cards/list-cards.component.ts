@@ -1,8 +1,10 @@
 import { HttpErrorResponse } from '@angular/common/http';
+import { resolve } from '@angular/compiler-cli/src/ngtsc/file_system';
 import { Component, OnInit } from '@angular/core';
 import { CardItemInterface } from '@interfaces/card-item-interface';
 import { CharacterInterface, InfoInterface } from '@interfaces/character-interface';
 import { EpisodeInterface } from '@interfaces/episode-interface';
+import { EpisodeResponseInterface } from '@interfaces/episode-response-interface';
 import { LocationInterface } from '@interfaces/location-interface';
 import { LocationItemInterface } from '@interfaces/location-item-interface';
 import { TypeFilterInterface } from '@interfaces/type-filter-interface';
@@ -21,6 +23,7 @@ export class ListCardsComponent implements OnInit {
   info            : InfoInterface             = {} as InfoInterface;
   listCharacters  : CardItemInterface[]       = [];
   listLocations   : LocationItemInterface[]   = [];
+  listEpisodes    : EpisodeInterface[]        = [];
   typeFilters     : TypeFilterInterface[]     = [];
 
   constructor(
@@ -36,9 +39,9 @@ export class ListCardsComponent implements OnInit {
 
   setTypeFilters():void{
     this.typeFilters = [
-      { id : 'inlineRadio1', name: 'character',   text: 'Personaje' },
-      { id : 'inlineRadio2', name: 'location',    text: 'Ubicación' },
-      { id : 'inlineRadio3', name: 'episodes',    text: 'Episodios' }
+      { id : 'inlineRadio1', name: 'character',   text: 'Character' },
+      { id : 'inlineRadio2', name: 'location',    text: 'Location' },
+      { id : 'inlineRadio3', name: 'episodes',    text: 'Episodes' }
     ];
 
     this.filterSelected = this.typeFilters[0].name;
@@ -53,6 +56,7 @@ export class ListCardsComponent implements OnInit {
         this.getLocations();
         break;
       case this.typeFilters[2].name:
+        this.getEpisodes();
         break;
     }
   }
@@ -71,6 +75,17 @@ export class ListCardsComponent implements OnInit {
   getCharacters():Promise<CharacterInterface>{
     return new Promise((resolve, reject) => {
       this.characterServices.get().subscribe( response => {
+        resolve(response);
+      },(error : HttpErrorResponse) => {
+        reject(error);
+      });
+    });
+  }
+
+  getEpisodes():Promise<EpisodeResponseInterface>{
+    return new Promise((resolve, reject) => {
+      this.episodesServices.get().subscribe(response => {
+        this.listEpisodes = response.results;
         resolve(response);
       },(error : HttpErrorResponse) => {
         reject(error);
