@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { RickMortyRoutingModule } from './rick-morty-routing.module';
 import { ListCardsComponent } from './components/list-cards/list-cards.component';
@@ -16,7 +17,9 @@ import { SharedModulesModule } from '@modules/shared-modules/shared-modules.modu
     CommonModule,
     HttpClientModule,
     RickMortyRoutingModule,
-    SharedModulesModule
+    SharedModulesModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class RickMortyModule { }
