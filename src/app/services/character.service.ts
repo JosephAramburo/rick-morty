@@ -15,6 +15,9 @@ export class CharacterService implements ApiRestInterface{
   constructor(
     private httpClient : HttpClient
   ) { }
+  getById(id: string): Observable<any> {
+    throw new Error('Method not implemented.');
+  }
 
   get(): Observable<CharacterInterface> {
     return this.httpClient.get<CharacterInterface>(this.apiUrl)

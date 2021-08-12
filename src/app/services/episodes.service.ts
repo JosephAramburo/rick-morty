@@ -16,6 +16,10 @@ export class EpisodesService implements ApiRestInterface{
     private httpClient : HttpClient
   ) { }
 
+  getById(id: string): Observable<EpisodeInterface> {
+    return this.httpClient.get<EpisodeInterface>(`${this.apiUrl}/${id}`);
+  }
+
   get(): Observable<EpisodeResponseInterface> {
     return this.httpClient.get<EpisodeResponseInterface>(`${this.apiUrl}`);
   }

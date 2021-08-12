@@ -13,6 +13,11 @@ import { LocationService } from '@services/location.service';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs/operators';
+
+interface EpisodeCharacterInterface{
+  id          : string;
+  idCharacter : number;
+}
 @Component({
   selector: 'app-list-cards',
   templateUrl: './list-cards.component.html',
@@ -114,25 +119,48 @@ export class ListCardsComponent implements OnInit {
 
   getDataCharacters(isCompare : boolean = false):void{
     this.getCharacters().then(response => {
-      this.listAllCharacters = response.results;
-      // this.info           = response.info;
-      if(!isCompare){
-        let getIds : string = this.listAllCharacters.map(x => x.id.toString()).join(',');
+      this.listAllCharacters            = [];
+      this.listCharacters               = [];
+      let listCha : CardItemInterface[] = response.results;
 
-        this.getEpisodesByIds(getIds).then(response => {
-          this.listAllCharacters.forEach(item => {
-            item.seen = response.find(x => x.id === item.id)?.name;
+      if(!isCompare){
+        let listEpisodesIds : EpisodeCharacterInterface[] = this.getEpisodesRambomByCharacters(listCha);
+        let episodesIds     : string                      = listEpisodesIds.map(x => x.id).join(',');
+
+        this.getEpisodesByIds(episodesIds).then(response => {
+          listCha.forEach(itemC => {
+              let episodeChaItem  : EpisodeCharacterInterface = listEpisodesIds.find(x => x.idCharacter == itemC.id) as EpisodeCharacterInterface;
+              let episodeName     : string | undefined       = response.find(x => x.id == Number.parseInt(episodeChaItem.id))?.name;
+
+              itemC.seen = typeof(episodeName) === 'undefined' ? '' : episodeName;
+
+              this.listCharacters.push(itemC);
+              this.listAllCharacters.push(itemC);
           });
-        }).catch((error : HttpErrorResponse) => {
+
+        }).catch(() => {
 
         });
-
-        this.listCharacters = this.listAllCharacters;
       }
     }).catch((error : HttpErrorResponse) => {
 
     });
   }
+
+  getEpisodesRambomByCharacters(result : CardItemInterface[]) : EpisodeCharacterInterface[]{
+    return result.map(x => {
+      let index : number = this.randomNumber(0, x.episode.length);
+
+      return { 
+        id          : x.episode[index].replace('https://rickandmortyapi.com/api/episode/',''), 
+        idCharacter : x.id 
+      };
+    });
+  }
+
+  randomNumber(min : number, max : number) : number { 
+    return Math.floor(Math.random() * (max - min) + min);
+  } 
 
   comparasion():void{
     this.listCharactersCompare.forEach(item => {

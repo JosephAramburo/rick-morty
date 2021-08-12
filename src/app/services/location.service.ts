@@ -15,6 +15,10 @@ export class LocationService implements ApiRestInterface {
     private httpClient : HttpClient
   ) { }
 
+  getById(id: string): Observable<any> {
+    throw new Error('Method not implemented.');
+  }
+
   get(): Observable<LocationInterface> {
     return this.httpClient.get<LocationInterface>(this.apiUrl)
   }
