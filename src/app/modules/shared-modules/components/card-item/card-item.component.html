@@ -1,6 +1,9 @@
 <div class="card bg-card" >
     <div class="card-body pt-0 pb-0 bg-card">
         <div class="row">
+            <button type="button" class="btn btn-link" style="position: absolute; right: 0px; z-index: 999;">
+                <i class="fas fa-trash-alt text-white" style="font-size: 22px;"></i>
+            </button>
             <div class="col-4 m-0 p-0">
                 <img [src]="character?.image" class="img-fluid" style="height: 195px;">
             </div>
@@ -19,9 +22,13 @@
                     <h5 class="text-white">{{character?.seen}}</h5>
                 </ng-container>
                 <ng-template #elseComparasion>
-                    <h6 class="pt-2 mb-0 color-subtitle" >Shared episodes:</h6>
+                    <div class="row" *ngIf="character?.characterShared">
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12" *ngFor="let item of character.characterShared">
+                            <h6 class="pt-2 mb-0 color-subtitle" >{{item.name}}</h6>
+                            <h5 class="text-white">{{item.episodes}}</h5>
+                        </div>
+                    </div>
                 </ng-template>
-                <!-- <h6 class="pt-2 mb-0 color-subtitle">Comparer:</h6> -->
             </div>
         </div>
     </div>

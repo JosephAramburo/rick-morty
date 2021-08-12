@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <div class="col-12 mt-1" *ngIf="filterSelected == typeFilters[3].name && listCharactersCompare.length > 1">
-                    <button class="btn btn-success btn-lg col-5"><i class="fas fa-check-circle"></i> Comparasion</button>
+                    <button class="btn btn-success btn-lg col-5" (click)="comparasion()"><i class="fas fa-check-circle"></i> Comparasion</button>
                 </div>
             </div>
             <div class="row">

@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { CardItemInterface } from '@interfaces/card-item-interface';
+import { CardItemInterface, CharacterShared } from '@interfaces/card-item-interface';
 import { CharacterInterface, InfoInterface } from '@interfaces/character-interface';
 import { EpisodeInterface } from '@interfaces/episode-interface';
 import { EpisodeResponseInterface } from '@interfaces/episode-response-interface';
@@ -131,6 +131,21 @@ export class ListCardsComponent implements OnInit {
       }
     }).catch((error : HttpErrorResponse) => {
 
+    });
+  }
+
+  comparasion():void{
+    this.listCharactersCompare.forEach(item => {
+      let othersCharacter : CardItemInterface[] = this.listCharactersCompare.filter(x => x.id != item.id);
+      item.characterShared                      = othersCharacter.map(x => { 
+        let count : number = 0;
+
+        item.episode.forEach(itemE => {
+          count = x.episode.indexOf(itemE) != -1 ? count+1 : count;
+        });
+
+        return {name : x.name, episodes : count } as CharacterShared;
+      });
     });
   }
 
